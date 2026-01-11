@@ -1,9 +1,10 @@
 import type { Handler } from '@warp-drive/core/request';
 import type { RequestContext } from '@warp-drive/core/types/request';
 import { dasherize, singularize } from '@warp-drive/utilities/string';
+import type { Pokemon } from 'graphql-pokedex/models/pokemon';
 
 export const TransformResponse: Handler = {
-  request(context, next) {
+  async request(context, next) {
     console.log('request made');
     console.log(context);
 
@@ -15,21 +16,31 @@ export const TransformResponse: Handler = {
   },
 };
 
-function normalizeResponse(content: RequestContext) {
+function normalizeResponse(content) {
   const result = {
     data: [],
     included: [],
   };
 
+  debugger;
+
   for (const key of Object.keys(content)) {
     const value = content[key];
+    const isPrimary = !key.startsWith('_');
     const type = dasherize(singularize(key.replace(/^_/, '')));
 
     for (const rawResource of value) {
       const resource = normalizeResource(type, rawResource);
-      result.data.push(resource);
+
+      if (isPrimary) {
+        result.data.push(resource);
+      } else {
+        result.included.push(resource);
+      }
     }
   }
+
+  debugger;
 
   return result;
 }

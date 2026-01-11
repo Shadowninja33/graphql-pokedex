@@ -24,6 +24,7 @@
     "lint:js:fix": "eslint . --fix",
     "lint:types": "glint",
     "start": "vite",
+    "start-server": "node server/index.mjs",
     "test": "vite build --mode development && ember test --path dist"
   },
   "exports": {
@@ -102,5 +103,8 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "volta": {
+    "node": "24.12.0"
   }
 }

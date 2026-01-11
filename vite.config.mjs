@@ -14,10 +14,16 @@ export default defineConfig({
   ],
   server: {
     proxy: {
+      // '/api': 'localhost:8888',
       '/api': {
-        target: 'https://pokeapi.co',
+        target: 'http://127.0.0.1:8888',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
+        autoRewrite: true,
+        rewrite: (path) => {
+          console.log('In rewrite');
+          return path.replace(/^\/api/, '');
+        },
       },
     },
   },
