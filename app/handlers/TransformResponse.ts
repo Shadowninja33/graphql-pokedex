@@ -3,6 +3,19 @@ import type { RequestContext } from '@warp-drive/core/types/request';
 import { dasherize, singularize } from '@warp-drive/utilities/string';
 import type { Pokemon } from 'graphql-pokedex/models/pokemon';
 
+// {
+//   data: [
+//     {
+//       type: 'users',
+//       id: 1,
+//       attributes: {
+//         name: 'John',
+//         email: 'john@mail.com',
+//       },
+//     },
+//   ];
+// }
+
 export const TransformResponse: Handler = {
   async request(context, next) {
     console.log('request made');
@@ -17,6 +30,19 @@ export const TransformResponse: Handler = {
 };
 
 function normalizeResponse(content) {
+  return {
+    data: {
+      type: 'pokemon',
+      id: String(content['id']),
+      attributes: {
+        name: content['name'],
+        weight: content['weight'],
+        base_experience: content['base_experience'],
+        sprites: content['sprites'],
+      },
+    },
+    included: [],
+  };
   const result = {
     data: [],
     included: [],

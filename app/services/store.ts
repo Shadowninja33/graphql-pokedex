@@ -1,38 +1,16 @@
 import { useRecommendedStore } from '@warp-drive/core';
 import { JSONAPICache } from '@warp-drive/json-api';
 import { TransformResponse } from 'graphql-pokedex/handlers/TransformResponse';
+import { PokemonSchema } from 'graphql-pokedex/schemas/pokemon';
+import { SpritesSchema } from 'graphql-pokedex/schemas/sprites';
 
 const StoreService = useRecommendedStore({
   cache: JSONAPICache,
   handlers: [TransformResponse],
   schemas: [
     // -- your schemas here
-    // {
-    //   type: 'pokemon',
-    //   identity: { kind: '@id', name: 'id' },
-    //   fields: [
-    //     { kind: 'field', name: 'name', sourceKey: 'name' },
-    //     { kind: 'field', name: 'weight', sourceKey: 'weight' },
-    //     { kind: 'field', name: 'xp', sourceKey: 'base_experience' },
-    //     // {
-    //     //   kind: 'field',
-    //     //   name: 'lastSeen',
-    //     //   sourceKey: 'last-seen',
-    //     //   type: 'date-time',
-    //     // },
-    //     // {
-    //     //   kind: 'resource',
-    //     //   name: 'bestFriend',
-    //     //   sourceKey: 'best-friend',
-    //     //   options: { async: false, inverse: null },
-    //     // },
-    //     // {
-    //     //   kind: 'collection',
-    //     //   name: 'pets',
-    //     //   options: { async: false, inverse: null, polymorphic: true },
-    //     // },
-    //   ],
-    // },
+    SpritesSchema,
+    PokemonSchema,
   ],
 });
 

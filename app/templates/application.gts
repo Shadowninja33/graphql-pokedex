@@ -4,13 +4,17 @@ import { findRecord } from '@warp-drive/utilities/rest';
 import { on } from '@ember/modifier';
 import { getPokemon } from 'graphql-pokedex/builders/getPokemon';
 import { hash } from '@ember/helper';
-
-const getDitto = getPokemon('ditto');
+import { tracked } from '@glimmer/tracking';
+import PokemonSearch from 'graphql-pokedex/components/pokemon-search.gts';
 <template>
   {{pageTitle "GraphqlPokedex"}}
-  <Request @query={{getDitto}}>
+
+  <PokemonSearch />
+
+  {{!-- {{this.search}} --}}
+  {{!-- <Request @query={{this.query}}>
     <:content as |result|>
-      {{result.data.name}}!
+      {{result.data.name}}
     </:content>
 
     <:loading>Loading...</:loading>
@@ -21,6 +25,6 @@ const getDitto = getPokemon('ditto');
         <p><button type="button" {{on "click" state.retry}}>Try Again?</button></p>
       </div>
     </:error>
-  </Request>
+  </Request> --}}
   {{outlet}}
 </template>
